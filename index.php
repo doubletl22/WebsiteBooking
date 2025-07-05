@@ -27,6 +27,14 @@ $services_result = $conn->query("SELECT name, description, price FROM services L
         </div>
     <?php endif; ?>
     <section id="services" class="my-5">
+        <h2 class="tieu-de-khu-vuc">về chúng tôi</h2>
+        <p class="tieu-de-khu-vuc">
+  Nha Khoa Hạnh Phúc tự hào là địa chỉ uy tín với hơn 10 năm kinh nghiệm 
+  trong lĩnh vực nha khoa. Chúng tôi cam kết mang đến dịch vụ chăm sóc răng miệng chất
+   lượng cao với đội ngũ bác sĩ giàu kinh nghiệm và trang thiết bị hiện đại.
+</p>
+
+
         <h2 class="text-center mb-4">Dịch vụ của chúng tôi</h2>
         <div class="row">
             <?php if ($services_result && $services_result->num_rows > 0): ?>

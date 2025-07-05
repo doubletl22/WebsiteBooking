@@ -18,7 +18,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="<?php echo BASE_URL; ?>index.php"><strong>Nha Khoa Hạnh Phúc</strong></a>
+            <a class="text-blue" href="<?php echo BASE_URL; ?>index.php"><strong>Nha Khoa Hạnh Phúc</strong></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,11 +48,11 @@ if (session_status() === PHP_SESSION_NONE) {
                             </div>
                         </li>
                     <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>patient/register.php">Đăng ký</a>
+                        <li class="nav-item" style="margin-top: 1px;">
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>patient/register.php"><b>Đăng ký</b></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="btn btn-primary" href="<?php echo BASE_URL; ?>patient/login.php">Đăng nhập</a>
+                        <li class="nav-item" style="margin-top: 5px;">
+                            <a class="btn btn-primary" href="<?php echo BASE_URL; ?>patient/login.php"><b>Đăng nhập</b></a>
                         </li>
                     <?php endif; ?>
                 </ul>
