@@ -1,9 +1,12 @@
 <?php
-
 session_start();
 
 if (isset($_SESSION['user_id'])) {
-    header("Location: index.php");
+    if ($_SESSION['user_role'] == 'admin') {
+        header("Location: index.php");
+    } elseif ($_SESSION['user_role'] == 'doctor') {
+        header("Location: doctor_dashboard.php");
+    }
     exit();
 }
 
@@ -33,14 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      $_SESSION['user_name'] = $user['name'];
                      $_SESSION['user_role'] = $user['role'];
 
-             if ($user['role'] == 'admin') {
-                header("Location: index.php");
-            } elseif ($user['role'] == 'doctor') {
-                header("Location: doctor_dashboard.php");
-            } else {
-                header("Location: index.php");
-            }
-            exit();
+                     if ($user['role'] == 'admin') {
+                        header("Location: index.php");
+                    } elseif ($user['role'] == 'doctor') {
+                        header("Location: doctor_dashboard.php");
+                    }
+                    exit();
                 } else {
                     $error_message = "Tài khoản của bạn không có quyền truy cập trang này.";
                 }
@@ -61,63 +62,105 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng nhập trang Quản trị</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         html, body {
             height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
         }
         body {
-            display: -ms-flexbox;
             display: flex;
-            -ms-flex-align: center;
             align-items: center;
-            padding-top: 40px;
-            padding-bottom: 40px;
-            background-color: #f5f5f5;
+            justify-content: center;
         }
         .form-signin {
             width: 100%;
-            max-width: 330px;
-            padding: 15px;
-            margin: auto;
+            max-width: 380px;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
-        .form-signin .form-control {
-            position: relative;
+        .form-signin h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-control {
             box-sizing: border-box;
-            height: auto;
-            padding: 10px;
+            width: 100%;
+            padding: 12px;
             font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        .form-signin input[type="email"] {
-            margin-bottom: -1px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-        .form-signin input[type="password"] {
-            margin-bottom: 10px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .alert-danger {
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .copyright {
+            margin-top: 30px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
         }
     </style>
 </head>
-<body class="text-center">
-    <form class="form-signin" method="POST" action="login.php">
-        <h1 class="h3 mb-3 font-weight-normal">Đăng nhập Admin</h1>
+<body>
+    <div class="form-signin">
+        <form method="POST" action="login.php">
+            <h1>Đăng nhập Nội Bộ</h1>
 
-        <?php if (!empty($error_message)): ?>
-            <div class="alert alert-danger">
-                <?php echo $error_message; ?>
+            <?php if (!empty($error_message)): ?>
+                <div class="alert-danger">
+                    <?php echo $error_message; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="example@email.com" required autofocus>
             </div>
-        <?php endif; ?>
-
-        <label for="inputEmail" class="sr-only">Địa chỉ email</label>
-        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Địa chỉ email" required autofocus>
-        
-        <label for="inputPassword" class="sr-only">Mật khẩu</label>
-        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mật khẩu" required>
-        
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Đăng nhập</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2025 - Phòng khám Nha Khoa</p>
-    </form>
+            
+            <div class="form-group">
+                 <label for="inputPassword">Mật khẩu</label>
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Mật khẩu" required>
+            </div>
+            
+            <button class="btn" type="submit">Đăng nhập</button>
+            <p class="copyright">&copy; 2025 - Phòng khám Nha Khoa</p>
+        </form>
+    </div>
 </body>
 </html>

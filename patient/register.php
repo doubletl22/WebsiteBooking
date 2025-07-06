@@ -40,61 +40,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký - Phòng khám Nha Khoa</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Đăng ký tài khoản</h3>
-                    </div>
-                    <div class="card-body">
-                        <?php if(!empty($error)): ?>
-                            <div class="alert alert-danger"><?php echo $error; ?></div>
-                        <?php endif; ?>
-                        <?php if(!empty($success)): ?>
-                            <div class="alert alert-success"><?php echo $success; ?></div>
-                        <?php endif; ?>
 
-                        <form action="register.php" method="POST">
-                            <div class="form-group">
-                                <label for="name">Họ và Tên (*)</label>
-                                <input type="text" name="name" id="name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email (*)</label>
-                                <input type="email" name="email" id="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Số điện thoại</label>
-                                <input type="text" name="phone" id="phone" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Mật khẩu (*)</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="confirm_password">Xác nhận Mật khẩu (*)</label>
-                                <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        Đã có tài khoản? <a href="login.php">Đăng nhập tại đây</a>
-                    </div>
+require '../includes/header_public.php';
+?>
+
+<title>Đăng ký - Phòng khám Nha Khoa</title>
+
+<div class="page-section">
+    <div class="login-container">
+        <div class="login-card">
+            <h2 class="section-title">Đăng ký tài khoản</h2>
+
+            <?php if(!empty($error)): ?>
+                <div class="error-message"><?php echo $error; ?></div>
+            <?php endif; ?>
+            <?php if(!empty($success)): ?>
+                <div class="success-message"><?php echo $success; ?></div>
+            <?php endif; ?>
+
+            <form action="register.php" method="POST">
+                <div class="custom-form-group">
+                    <label for="name">Họ và Tên (*)</label>
+                    <input type="text" name="name" id="name" class="custom-form-control" required>
                 </div>
+                <div class="custom-form-group">
+                    <label for="email">Email (*)</label>
+                    <input type="email" name="email" id="email" class="custom-form-control" required>
+                </div>
+                <div class="custom-form-group">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="text" name="phone" id="phone" class="custom-form-control">
+                </div>
+                <div class="custom-form-group">
+                    <label for="password">Mật khẩu (*)</label>
+                    <input type="password" name="password" id="password" class="custom-form-control" required>
+                </div>
+                <div class="custom-form-group">
+                    <label for="confirm_password">Xác nhận Mật khẩu (*)</label>
+                    <input type="password" name="confirm_password" id="confirm_password" class="custom-form-control" required>
+                </div>
+                <button type="submit" class="custom-btn btn-block">Đăng ký</button>
+            </form>
+
+            <div class="login-footer">
+                Đã có tài khoản? <a href="login.php">Đăng nhập tại đây</a>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+
+<?php 
+require '../includes/footer_public.php'; 
+?>
