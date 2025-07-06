@@ -1,14 +1,24 @@
 <?php
 session_start();
+
+// 1. Định nghĩa BASE_URL trỏ về thư mục gốc của ứng dụng
+define('BASE_URL', '/websitebooking/');
+
+// Kiểm tra nếu người dùng đã đăng nhập và là bệnh nhân, chuyển hướng họ đến trang profile
 if (isset($_SESSION['user_id']) && $_SESSION['user_role'] === 'patient') {
-    header("Location: profile.php");
+    // 2. Sử dụng BASE_URL để tạo đường dẫn tuyệt đối
+    header("Location: " . BASE_URL . "patient/profile.php");
     exit();
 }
+
 $error_message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Đường dẫn tới file db.php vẫn là tương đối vì chúng ở cùng cấp cấu trúc
     require '../includes/db.php';
+
     $email = $_POST['email'];
     $password = $_POST['password'];
+
     if (empty($email) || empty($password)) {
         $error_message = "Vui lòng nhập email và mật khẩu.";
     } else {
@@ -17,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
+
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
             if (password_verify($password, $user['password'])) {
@@ -24,7 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['user_name'] = $user['name'];
                     $_SESSION['user_role'] = $user['role'];
-                    header("Location: profile.php");
+
+                    // 3. Chuyển hướng đến trang index.php ở thư mục gốc sau khi đăng nhập thành công
+                    header("Location: " . BASE_URL . "index.php");
                     exit();
                 } else {
                     $error_message = "Tài khoản này không phải là tài khoản bệnh nhân.";
@@ -38,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Nhúng header (đường dẫn tương đối vẫn ổn)
 require '../includes/header_public.php';
 ?>
 <title>Đăng nhập - Phòng khám Nha Khoa</title>
@@ -52,7 +66,8 @@ require '../includes/header_public.php';
                     <?php if (!empty($error_message)): ?>
                         <div class="alert alert-danger"><?php echo $error_message; ?></div>
                     <?php endif; ?>
-                    <form action="login.php" method="POST">
+                    
+                    <form action="<?php echo BASE_URL; ?>patient/login.php" method="POST">
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" class="form-control" required>
@@ -65,14 +80,14 @@ require '../includes/header_public.php';
                     </form>
                 </div>
                 <div class="card-footer text-center">
-                    Chưa có tài khoản? <a href="register.php">Đăng ký ngay</a>
+                    Chưa có tài khoản? <a href="<?php echo BASE_URL; ?>patient/register.php">Đăng ký ngay</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<?php 
-// Nhúng footer
-require '../includes/footer_public.php'; 
+<?php
+// Nhúng footer (đường dẫn tương đối vẫn ổn)
+require '../includes/footer_public.php';
 ?>

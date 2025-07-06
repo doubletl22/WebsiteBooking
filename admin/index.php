@@ -15,30 +15,25 @@ require 'includes/sidebar.php';
     </div>
 
     <?php
-    // Kết nối CSDL
     require_once '../includes/db.php';
 
-    // Lấy danh sách bác sĩ
     $doctors = mysqli_query($conn, "
         SELECT d.id, u.name, u.email, u.phone, d.specialty
         FROM doctors d
         JOIN users u ON d.user_id = u.id
     ");
 
-    // Lấy danh sách bệnh nhân
     $patients = mysqli_query($conn, "
         SELECT id, name, email, phone
         FROM users
         WHERE role = 'patient'
     ");
 
-    // Lấy danh sách dịch vụ
     $services = mysqli_query($conn, "
         SELECT id, name, price
         FROM services
     ");
 
-    // Lấy danh sách lịch hẹn
     $appointments = mysqli_query($conn, "
         SELECT a.id, u1.name AS patient_name, u2.name AS doctor_name, s.name AS service_name, a.appointment_time, a.status
         FROM appointments a
@@ -49,7 +44,7 @@ require 'includes/sidebar.php';
         ORDER BY a.appointment_time DESC
         LIMIT 10
     ");
-    // Lấy danh sách ngày nghỉ của bác sĩ
+
     $doctor_offs = mysqli_query($conn, "
     SELECT t.id, d.id as doctor_id, u.name as doctor_name, u.email as doctor_email, t.start_time, t.end_time, t.reason
     FROM time_offs t
@@ -58,10 +53,7 @@ require 'includes/sidebar.php';
     ORDER BY t.start_time DESC
 ");
 
-
     ?>
-
-    <!-- Danh sách Bác sĩ -->
     <h2>Danh sách Bác sĩ</h2>
     <table class="table table-bordered table-hover">
         <thead>
@@ -82,7 +74,6 @@ require 'includes/sidebar.php';
         </tbody>
     </table>
 
-    <!-- Danh sách Bệnh nhân -->
     <h2>Danh sách Bệnh nhân</h2>
     <table class="table table-bordered table-hover">
         <thead>
@@ -102,7 +93,6 @@ require 'includes/sidebar.php';
         </tbody>
     </table>
 
-    <!-- Danh sách Dịch vụ -->
     <h2>Danh sách Dịch vụ</h2>
     <table class="table table-bordered table-hover">
         <thead>
@@ -121,7 +111,6 @@ require 'includes/sidebar.php';
         </tbody>
     </table>
 
-    <!-- Danh sách Lịch hẹn gần đây -->
     <h2>Danh sách Lịch hẹn gần đây</h2>
     <table class="table table-bordered table-hover">
         <thead>
@@ -142,10 +131,8 @@ require 'includes/sidebar.php';
         <?php endwhile; ?>
         </tbody>
     </table>
-    <!-- Danh sách ngày nghỉ của Bác sĩ -->
     <h2>Danh sách ngày nghỉ của Bác sĩ</h2>
     <?php
-    // Kiểm tra nếu có dữ liệu ngày nghỉ
     if (mysqli_num_rows($doctor_offs) > 0): ?>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">

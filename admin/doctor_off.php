@@ -10,7 +10,6 @@ if ($_SESSION['user_role'] !== 'doctor') {
 }
 
 $doctor_user_id = $_SESSION['user_id'];
-// Lấy doctor_id
 $doctor_sql = "SELECT id FROM doctors WHERE user_id = ?";
 $stmt_doctor = $conn->prepare($doctor_sql);
 $stmt_doctor->bind_param("i", $doctor_user_id);
@@ -19,7 +18,6 @@ $doctor_result = $stmt_doctor->get_result();
 $doctor = $doctor_result->fetch_assoc();
 $doctor_id = $doctor['id'] ?? 0;
 
-// Xử lý form báo ngày nghỉ
 $msg = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $start = $_POST['start_time'];
@@ -39,9 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <style>
-/* CSS tránh đè lên sidebar, responsive cho màn hình nhỏ */
 .main-content {
-    padding-left: 250px; /* Đúng bằng chiều rộng sidebar */
+    padding-left: 250px; 
     min-height: 90vh;
     background: #fff;
 }
@@ -65,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         max-width: 900px;
         width: 100%;
         min-width: 320px;
-        /* Hiển thị dạng hình chữ nhật to */
         display: flex;
         flex-direction: column;
         justify-content: center;

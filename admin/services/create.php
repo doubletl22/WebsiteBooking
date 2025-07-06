@@ -12,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($name) && is_numeric($duration_minutes) && is_numeric($price)) {
         $sql = "INSERT INTO services (name, description, duration_minutes, price) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        // "ssis" nghĩa là string, string, integer, string (cho decimal)
         $stmt->bind_param("ssis", $name, $description, $duration_minutes, $price);
 
         if ($stmt->execute()) {
