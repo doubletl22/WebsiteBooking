@@ -46,7 +46,7 @@ $service_categories = [
         'Niềng răng trong suốt Invisalign'
     ],
     'NHA KHOA TRẺ EM' => [
-        'Khám và tư vấn tổng quát', // Dịch vụ này có thể thuộc cả 2 nhóm
+        'Khám và tư vấn tổng quát', 
         'Nhổ răng sữa',
         'Trám răng sữa',
         'Chữa tủy răng sữa',
@@ -92,7 +92,6 @@ $featured_doctors_result = $conn->query($sql_doctors);
 </section>
 
 <div class="custom-container">
-    <div class="custom-container">
     <?php if (isset($_SESSION['success_message'])): ?>
         <div class="success-message page-notification">
             <?php 
@@ -103,43 +102,43 @@ $featured_doctors_result = $conn->query($sql_doctors);
     <?php endif; ?>
 
     <section id="featured-services" class="page-section">
-    <div class="custom-container">
-        <h2 class="section-title">Dịch vụ nổi bật</h2>
-        <div class="custom-row" style="justify-content: center;">
-            <?php if ($featured_services_result && $featured_services_result->num_rows > 0): ?>
-                <?php while($service = $featured_services_result->fetch_assoc()): ?>
-                    <div class="custom-col-4">
-                        <div class="service-card">
-                            <div class="service-icon">
-                                <i class="fas <?php echo $service_icons[$service['name']] ?? 'fa-star'; ?>"></i>
+        <div class="custom-container">
+            <h2 class="section-title">Dịch vụ nổi bật</h2>
+            <div class="custom-row" style="justify-content: center;">
+                <?php if ($featured_services_result && $featured_services_result->num_rows > 0): ?>
+                    <?php while($service = $featured_services_result->fetch_assoc()): ?>
+                        <div class="custom-col-4">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas <?php echo $service_icons[$service['name']] ?? 'fa-star'; ?>"></i>
+                                </div>
+                                <h5 class="service-name"><?php echo htmlspecialchars($service['name']); ?></h5>
+                                <p class="service-description">
+                                    <?php
+                                        $desc = htmlspecialchars($service['description']);
+                                        if (strlen($desc) > 90) {
+                                            echo substr($desc, 0, 87) . '...';
+                                        } else {
+                                            echo $desc;
+                                        }
+                                    ?>
+                                </p>
+                                <a href="#price-list" class="service-link">Xem chi tiết &rarr;</a>
                             </div>
-                            <h5 class="service-name"><?php echo htmlspecialchars($service['name']); ?></h5>
-                            <p class="service-description">
-                                <?php
-                                    $desc = htmlspecialchars($service['description']);
-                                    if (strlen($desc) > 90) {
-                                        echo substr($desc, 0, 87) . '...';
-                                    } else {
-                                        echo $desc;
-                                    }
-                                ?>
-                            </p>
-                            <a href="#price-list" class="service-link">Xem chi tiết &rarr;</a>
                         </div>
-                    </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <p>Không tìm thấy dịch vụ nổi bật.</p>
-            <?php endif; ?>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>Không tìm thấy dịch vụ nổi bật.</p>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section id="price-list" class="page-section">
         <h2 class="section-title">Bảng giá dịch vụ nha khoa</h2>
         <div class="price-accordion">
             <?php foreach ($service_categories as $category => $services_in_category): ?>
-                <details open>
+                <details>
                     <summary><?php echo $category; ?></summary>
                     <div class="price-table-container">
                         <table class="price-table">
@@ -178,20 +177,18 @@ $featured_doctors_result = $conn->query($sql_doctors);
                                     $avatar_url = !empty($doctor['avatar']) ? $doctor['avatar'] : 'images/default-avatar.jpg';
                                 ?>
                                 <img src="<?php echo BASE_URL . htmlspecialchars($avatar_url); ?>" 
-                                    alt="Bác sĩ <?php echo htmlspecialchars($doctor['name']); ?>" 
-                                    class="doctor-card-img">
+                                     alt="Bác sĩ <?php echo htmlspecialchars($doctor['name']); ?>" 
+                                     class="doctor-card-img">
 
                                 <h5 class="doctor-name"><?php echo htmlspecialchars($doctor['name']); ?></h5>
                                 <p class="doctor-specialty"><?php echo htmlspecialchars($doctor['specialty']); ?></p>
                                 
                                 <?php
-                                    // Tách bio thành các dòng để làm danh sách
                                     $bio_lines = array_filter(explode("\n", trim($doctor['bio'])));
                                 ?>
                                 
                                 <p class="doctor-bio-description">
                                     <?php 
-                                        // Hiển thị dòng đầu tiên như mô tả ngắn
                                         if (!empty($bio_lines)) echo htmlspecialchars(array_shift($bio_lines));
                                     ?>
                                 </p>
@@ -201,7 +198,6 @@ $featured_doctors_result = $conn->query($sql_doctors);
                                         <li><?php echo htmlspecialchars(trim($line)); ?></li>
                                     <?php endforeach; ?>
                                 </ul>
-            
                             </div>
                         </div>
                     <?php endwhile; ?>
