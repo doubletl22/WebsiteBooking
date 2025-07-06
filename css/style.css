@@ -130,7 +130,7 @@
 .btn-primary:hover {
     background-color: #0056b3;
 }
-<<<<<<< HEAD
+
 .tieu-de-khu-vuc {
   margin-top: 20px; 
   margin-bottom: 10px; 
@@ -209,7 +209,7 @@ img.doctor-avatar {
 .list-unstyled a {
   text-decoration: none;
 }
-=======
+
 /* ----- Footer Styling ----- */
 .site-footer {
     background-color: #1a253c; /* Màu xanh đen */
@@ -314,4 +314,93 @@ body {
 .page-wrapper {
     flex-grow: 1;
 }
->>>>>>> 20ec5104143041ab58fd2becc54d8d41cd895886
+
+/* --- CSS CHO TRANG CÁ NHÂN CHUYÊN NGHIỆP --- */
+
+/* Nền chung cho trang */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Khung sidebar bên trái */
+.profile-sidebar {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+/* Phần thông tin người dùng */
+.profile-user-info {
+    text-align: center;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.profile-user-info .avatar-icon {
+    width: 80px;
+    height: 80px;
+    background-color: #e7f1ff;
+    color: #007bff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    margin: 0 auto 15px auto;
+}
+
+.profile-user-info .user-name {
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 5px;
+}
+
+.profile-user-info .user-role {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Menu chức năng */
+.profile-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: #495057;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.profile-nav a i {
+    margin-right: 15px;
+    width: 20px; /* Giúp các icon thẳng hàng */
+    text-align: center;
+}
+
+.profile-nav a:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+}
+
+.profile-nav a.active {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Các thẻ card bên phải */
+.welcome-card, .contact-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+
+.contact-card .hotline {
+    font-size: 24px;
+    font-weight: 700;
+    color: #007bff;
+}
