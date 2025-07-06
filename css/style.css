@@ -39,6 +39,7 @@ ul {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
+    width: 100%; 
 }
 
 .custom-col-2, .custom-col-3, .custom-col-4, .custom-col-6, .custom-col-8 {
@@ -676,4 +677,84 @@ ul {
     border-radius: 50%; 
     object-fit: cover; 
     margin: 0 auto 15px; 
+}
+/* =================================
+   FEATURED SERVICES (DETAILED)
+   ================================= */
+#featured-services {
+    background-color: #fff;
+}
+.service-card {
+    background-color: #fff;
+    padding: 30px 25px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 35px rgba(90, 58, 53, 0.1);
+}
+.service-icon {
+    font-size: 40px;
+    color: #d36a5d;
+    margin-bottom: 20px;
+    height: 45px;
+}
+.service-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #5a3a35;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+.service-description {
+    font-size: 0.95rem;
+    color: #6c757d;
+    line-height: 1.6;
+    flex-grow: 1; /* Đẩy link xuống dưới cùng */
+}
+.service-link {
+    color: #d36a5d;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: auto; /* Căn link xuống dưới */
+    transition: color 0.3s;
+}
+.service-link:hover {
+    color: #5a3a35;
+}
+/* =================================
+   CUSTOM GRID SYSTEM (FLEXBOX)
+   ================================= */
+.custom-row {
+    display: flex;
+    flex-wrap: wrap;
+    /* Dùng margin âm để bù lại padding của các cột, giúp layout căn đều */
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+/* Các cột con đều có padding và sẽ là flex-item */
+.custom-col-2, .custom-col-3, .custom-col-4, .custom-col-6, .custom-col-8, .custom-col-9 {
+    position: relative;
+    width: 100%; /* Mặc định trên mobile sẽ chiếm toàn bộ chiều rộng */
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 20px;
+}
+
+/* Áp dụng chia cột cho màn hình lớn hơn (>= 768px) */
+@media (min-width: 768px) {
+    .custom-col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+    .custom-col-3 { flex: 0 0 25%; max-width: 25%; }
+    .custom-col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+    .custom-col-6 { flex: 0 0 50%; max-width: 50%; }
+    .custom-col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+    .custom-col-9 { flex: 0 0 75%; max-width: 75%; }
 }

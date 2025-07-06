@@ -55,6 +55,25 @@ $service_categories = [
     ]
 ];
 
+$featured_services_query = "SELECT name, description FROM services WHERE name IN (
+    'Cấy ghép Implant',
+    'Niềng răng trong suốt',
+    'Mặt dán sứ Veneer',
+    'Tẩy trắng răng tại phòng khám',
+    'Bọc răng sứ Zirconia',
+    'Cạo vôi răng'
+) LIMIT 6";
+$featured_services_result = $conn->query($featured_services_query);
+
+$service_icons = [
+    'Cấy ghép Implant' => 'fa-tooth',
+    'Niềng răng trong suốt' => 'fa-user-secret',
+    'Mặt dán sứ Veneer' => 'fa-gem',
+    'Tẩy trắng răng tại phòng khám' => 'fa-magic',
+    'Bọc răng sứ Zirconia' => 'fa-crown',
+    'Cạo vôi răng' => 'fa-shield-alt'
+];
+
 $sql_doctors = "SELECT u.name, d.specialty, d.bio, d.avatar 
                 FROM doctors d 
                 JOIN users u ON d.user_id = u.id 
@@ -82,35 +101,39 @@ $featured_doctors_result = $conn->query($sql_doctors);
             ?>
         </div>
     <?php endif; ?>
+
     <section id="featured-services" class="page-section">
+    <div class="custom-container">
         <h2 class="section-title">Dịch vụ nổi bật</h2>
-        <div class="custom-row">
-            <div class="custom-col-3">
-                <div class="feature-item">
-                    <div class="feature-icon">🦷</div>
-                    <h6>Chăm sóc chuyên nghiệp</h6>
-                </div>
-            </div>
-            <div class="custom-col-3">
-                <div class="feature-item">
-                    <div class="feature-icon">💎</div>
-                    <h6>Vật liệu chất lượng</h6>
-                </div>
-            </div>
-            <div class="custom-col-3">
-                <div class="feature-item">
-                    <div class="feature-icon">😊</div>
-                    <h6>Hỗ trợ tận tình</h6>
-                </div>
-            </div>
-            <div class="custom-col-3">
-                <div class="feature-item">
-                    <div class="feature-icon">💲</div>
-                    <h6>Giá cả hợp lý</h6>
-                </div>
-            </div>
+        <div class="custom-row" style="justify-content: center;">
+            <?php if ($featured_services_result && $featured_services_result->num_rows > 0): ?>
+                <?php while($service = $featured_services_result->fetch_assoc()): ?>
+                    <div class="custom-col-4">
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas <?php echo $service_icons[$service['name']] ?? 'fa-star'; ?>"></i>
+                            </div>
+                            <h5 class="service-name"><?php echo htmlspecialchars($service['name']); ?></h5>
+                            <p class="service-description">
+                                <?php
+                                    $desc = htmlspecialchars($service['description']);
+                                    if (strlen($desc) > 90) {
+                                        echo substr($desc, 0, 87) . '...';
+                                    } else {
+                                        echo $desc;
+                                    }
+                                ?>
+                            </p>
+                            <a href="#price-list" class="service-link">Xem chi tiết &rarr;</a>
+                        </div>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>Không tìm thấy dịch vụ nổi bật.</p>
+            <?php endif; ?>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="price-list" class="page-section">
         <h2 class="section-title">Bảng giá dịch vụ nha khoa</h2>
